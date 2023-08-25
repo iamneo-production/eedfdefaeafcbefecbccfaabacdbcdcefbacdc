@@ -1,4 +1,4 @@
-package stepDefination;
+package stepdefination;
 
 import java.util.List;
 import org.openqa.selenium.By;
