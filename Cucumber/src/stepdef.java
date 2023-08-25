@@ -1,47 +1,43 @@
-package stepdefination;
+package stepDefination;
+
+import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.WebElement;
 import cucumber.annotation.en.Given;
 import cucumber.annotation.en.Then;
 import cucumber.annotation.en.When;
 
 
-public class stepdef {
+public class stepDef {
     WebDriver driver=null;
-    @Given("^I am on user registration page$")
-    public void goToWebPage(){
-        driver.navigate().to("https://www.facebook.com/");
-    }
-    @When("^I enter valid data on the page$")
-    public void enterValidData(){
-        driver.findElement(By.name("firstname")).sendKeys("Michael");
-        driver.findElement(By.name("lastname")).sendKeys("John");
-        driver.findElement(By.name("registered_email__")).sendKeys("michael123@gmail.com");
-        driver.findElement(By.name("registered_email_confirmation__")).sendKeys("michael123@gmail.com");
-        driver.findElement(By.name("registered_email__")).sendKeys("michael123@gmail.com");
-        driver.findElement(By.name("registered_passwd__")).sendKeys("Mike@123");
-        Select dropdownB = new Select(driver.findElement(By.name("birth_day")));
-        dropdownB.selectByValue("12");  
-        Select dropdownM = new Select(driver.findElement(By.name("birth_month")));
-        dropdownM.selectByValue("7");  
-        Select dropdownY = new Select(driver.findElement(By.name("birth_year")));
-        dropdownY.selectByValue("1999");  
-        driver.findElement(By.className("_59mt")).click();
-        driver.findElement(By.name("websubmit")).click();
 
+    @Given("^User is on registration page$")
+    
+    public void goToRegistration(){
+        
+        driver.navigate().to("https://flipkart.com");
     }
-    @Then("^user registration should be successful$")
-    public void User_registration_should_be_successful(){
-        if(driver.getCurrentUrl().equalsIgnoreCase("https://www.facebook.com/")){
-            System.out.print("Test Pass");
+
+    @Given("^User navigates to Login page$")
+    public void goToLoginPage(){
+        driver.findElement(By.linkText("login")).click();
+    }
+    @Given("^User enters username and password")
+    public void fillDetails(){
+        driver.findElement(By.id("Username")).sendKeys("ABC@!23");
+        driver.findElement(By.id("password")).sendKeys("qwerty@123");
+    }
+    @Then("^Login success or not")
+    public void verifyLogin(){
+        String expTitle = "Online Shopping Site for Mobiles, Electronics, Furniture, Grocery, Lifestyle, Books & More. Best Offers!";
+        String orgTitle = driver.getTitle();
+        if(expTitle.equals(orgTitle)){
+            System.out.println("You have successfully logged into your account! There are multiple discount offers waiting for you!!");
         }
         else{
-            System.out.print("Test Failed");
-
+            System.out.println("Login failed!!");
         }
         driver.close();
     }
-    
-    
 }
